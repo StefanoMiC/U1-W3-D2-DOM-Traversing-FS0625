@@ -130,11 +130,81 @@ newDiv.style.backgroundColor = "aqua";
 const newP = document.createElement("p");
 newP.innerText = "sono un p dentro al div";
 
-console.log(newDiv); // qui lo vediamo plasmarsi IN MEMORIA (ma non sarà ancora nella pagina)
+console.dir(newDiv); // qui lo vediamo plasmarsi IN MEMORIA (ma non sarà ancora nella pagina)
 
 // ora dobbiamo scegliere dove inserirlo
+
 // tramite appendChild sul genitore, specifico quale figlio voglio inserirgli all'interno (in fondo)
 // document.body.appendChild(newDiv);
 
 newDiv.appendChild(newP);
 main.appendChild(newDiv);
+
+// altro esempio: creiamo un link e inseriamo nell'header
+// creo l'elemento
+const newLink = document.createElement("a");
+newLink.innerText = "testo del link";
+newLink.href = "https://google.it";
+newLink.targt = "_blank";
+// newLink.style.color = "white";
+newLink.style.backgroundColor = "aqua";
+
+// console.log(newLink.getAttribute("href"));
+console.log(newLink.href);
+// inserisco l'elemento
+header.appendChild(newLink);
+
+// creo un'immagine
+const newImage = document.createElement("img");
+newImage.src =
+  "https://images.unsplash.com/photo-1761839258671-6495fdc188b3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+newImage.alt = "Land O'Lakes, Inc.";
+newImage.style.width = "100%";
+
+const secondSection = document.getElementById("second-section");
+// secondSection.appendChild(newImage);
+
+// inseriamo nella seconda sezione MA PRIMA della ul
+
+// const secondSectionUl = document.querySelector("#second-section ul")
+
+// ricavo il nodo della ul della sezione che già ho
+const secondSectionP = secondSection.querySelector("p");
+console.dir(secondSectionP);
+
+// e lo uso come riferimento prima del quale inserire la mia newImage
+
+// l'insertBefore funziona in questo modo:
+// parentNode.insertBefore(NodoElementoDaInserire, NodoElementoPrimaDelQualeInserire)
+
+secondSection.insertBefore(newImage, secondSectionP);
+
+// risalire l'albero dei nodi (parentNode e closest)
+console.log(secondSectionP.parentNode); // la second section, genitore di questa p
+console.log(secondSectionP.parentNode.parentNode); // main
+console.log(secondSectionP.parentNode.parentNode.parentNode); // body
+
+// con il closest posso usare selettori CSS per cercare quello che mi serve (andando verso l'alto)
+// console.log(secondSectionP.closest("main")); // la second section, genitore di questa p
+console.log(secondSectionP.closest(".main-element")); // la second section, genitore di questa p
+
+secondSection.setAttribute("data-size", "500");
+
+// console.log(secondSection.getAttribute("data-size"));
+
+// quando un attributo si chiama data-* si può leggerlo in maniera più veloce in questo modo:
+console.log(secondSection.dataset.size);
+
+const insertNewLiInFirstSection = function (text) {
+  const firstSectionUl = document.querySelector("#first-section ul");
+
+  const li = document.createElement("li");
+  li.innerText = text;
+
+  firstSectionUl.appendChild(li);
+};
+
+insertNewLiInFirstSection("nuovo elemento");
+
+// modificare OGNI elemento di una collezione
+footerLinks.forEach((link) => (link.style.backgroundColor = "red"));
