@@ -195,6 +195,7 @@ secondSection.setAttribute("data-size", "500");
 // quando un attributo si chiama data-* si può leggerlo in maniera più veloce in questo modo:
 console.log(secondSection.dataset.size);
 
+// creo una funzione che, se avviata, creerà un nuovo elemento nella ul della prima sezione
 const insertNewLiInFirstSection = function (text) {
   const firstSectionUl = document.querySelector("#first-section ul");
 
